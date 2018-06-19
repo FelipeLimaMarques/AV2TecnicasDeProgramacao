@@ -32,21 +32,6 @@ void adiciona_aluno (int posicao){
 		
 		printf ("\nMatricula: ");
 		scanf ("%d", &p[posicao].matricula);
-		if (tamanho > 1){
-			do{
-				for (int i = 0; i < tamanho; i++){
-					if (p[posicao].matricula == p[i-1].matricula){
-						printf ("Matricula ja cadastrada!\n");
-						flag = false;
-						printf ("Matricula: ");
-						scanf ("%d", &p[posicao].matricula);
-						break;
-					}
-					else
-						flag = true;
-				}
-			}while (flag == false);
-		}
 		printf ("\nNome: ");
 		fflush (stdin);
 		//scanf ("%s[a-zA-Z ]", &p[posicao].nome);
@@ -97,8 +82,30 @@ void altera_aluno(){
 	if (tamanho == 0)
 		printf ("Nao ha alunos cadastrados!\n");
 	else{
-		consulta_aluno("Para alterar um aluno, entra com a matricula: ");
-		adiciona_aluno(i);
+		int posicao = consulta_aluno("Para alterar um aluno, entra com a matricula: ");
+		printf ("\nNome: ");
+		fflush (stdin);
+		//scanf ("%s[a-zA-Z ]", &p[posicao].nome);
+		fgets(p[posicao].nome, 30, stdin);
+		//fflush (stdin);
+		printf ("\nNota AV1: ");
+		scanf ("%f", &p[posicao].av1);
+		if (p[posicao].av1 < 0 || p[posicao].av1 > 10){
+			do{
+				printf ("\nValor Invalido!\nNota AV1: ");
+				scanf ("%f", &p[posicao].av1);
+			}while (p[posicao].av1 < 0 || p[posicao].av1 > 10);
+		}
+		printf ("\nNota AV2: ");
+		scanf ("%f", &p[posicao].av2);
+		if (p[posicao].av2 < 0 || p[posicao].av2 > 10){
+			do{
+				printf ("\nValor Invalido!\nNota AV2: ");
+				scanf ("%f", &p[posicao].av2);
+			}while (p[posicao].av2 < 0 || p[posicao].av2 > 10);
+		}
+		printf ("\n");
+		p[posicao].media = calcula_media(p[posicao].av1, p[posicao].av2);
 		printf ("\n");
 	}
 }
